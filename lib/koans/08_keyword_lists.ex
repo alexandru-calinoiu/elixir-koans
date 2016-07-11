@@ -34,12 +34,9 @@ defmodule KeywordLists do
   end
 
   koan "Conveniently keyword lists can be used for function options" do
-    transform = fn str, opts ->
-      if opts[:upcase] do
-        String.upcase(str)
-      else
-        str
-      end
+    transform = fn
+      str, [upcase: true] -> String.upcase(str)
+      str, [upcase: false] -> str
     end
 
     assert transform.("good", upcase: true) == "GOOD"
